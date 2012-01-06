@@ -1,0 +1,11 @@
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/sonar-plugins/!svn/ver/1525/trunk/build-stability/sonar-plugin/src/main/resources/org/sonar/plugins/buildstability
+END
+buildStabilityWidget.erb
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/sonar-plugins/!svn/ver/1525/trunk/build-stability/sonar-plugin/src/main/resources/org/sonar/plugins/buildstability/buildStabilityWidget.erb
+END

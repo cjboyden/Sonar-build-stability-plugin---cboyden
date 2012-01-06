@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/sonar-plugins/!svn/ver/1758/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci/hudson
+END
+HudsonServer.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/sonar-plugins/!svn/ver/1531/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci/hudson/HudsonServer.java
+END
+HudsonBuildUnmarshaller.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/sonar-plugins/!svn/ver/1531/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci/hudson/HudsonBuildUnmarshaller.java
+END
+HudsonUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/sonar-plugins/!svn/ver/1758/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci/hudson/HudsonUtils.java
+END

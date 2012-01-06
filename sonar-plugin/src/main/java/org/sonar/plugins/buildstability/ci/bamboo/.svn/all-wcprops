@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/sonar-plugins/!svn/ver/1816/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci/bamboo
+END
+BambooBuildUnmarshaller.java
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/sonar-plugins/!svn/ver/1816/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci/bamboo/BambooBuildUnmarshaller.java
+END
+BambooServer.java
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/sonar-plugins/!svn/ver/1531/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci/bamboo/BambooServer.java
+END

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/sonar-plugins/!svn/ver/1816/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci
+END
+CiConnector.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/sonar-plugins/!svn/ver/1531/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci/CiConnector.java
+END
+AbstractServer.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/sonar-plugins/!svn/ver/1531/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci/AbstractServer.java
+END
+CiFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/sonar-plugins/!svn/ver/1525/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci/CiFactory.java
+END
+Unmarshaller.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/sonar-plugins/!svn/ver/1531/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/ci/Unmarshaller.java
+END

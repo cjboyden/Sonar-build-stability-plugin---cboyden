@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/sonar-plugins/!svn/ver/1816/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability
+END
+BuildStabilityWidget.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/sonar-plugins/!svn/ver/1525/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/BuildStabilityWidget.java
+END
+BuildStabilityEventsSensor.java
+K 25
+svn:wc:ra_dav:version-url
+V 142
+/sonar-plugins/!svn/ver/1531/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/BuildStabilityEventsSensor.java
+END
+BuildStabilityPlugin.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/sonar-plugins/!svn/ver/1525/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/BuildStabilityPlugin.java
+END
+BuildStabilityMetrics.java
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/sonar-plugins/!svn/ver/1525/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/BuildStabilityMetrics.java
+END
+BuildStabilitySensor.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/sonar-plugins/!svn/ver/1531/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/BuildStabilitySensor.java
+END
+BuildStabilityChart.java
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/sonar-plugins/!svn/ver/1525/trunk/build-stability/sonar-plugin/src/main/java/org/sonar/plugins/buildstability/BuildStabilityChart.java
+END
