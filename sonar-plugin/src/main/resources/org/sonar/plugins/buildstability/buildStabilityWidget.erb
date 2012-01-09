@@ -77,7 +77,7 @@
     <div class="yui-u first">
       <% if durations_measure && results_measure %>
       <div>
-        <%= chart('ck=buildsbar&w=350&h=200&v=' + durations_measure.data + '&c=' + results_measure.data) %>
+        <%= chart('tt=' + durations_measure.data + '&ck=buildsbar&w=350&h=200&v=' + durations_measure.data + '&c=' + results_measure.data) %>
       </div>
       <% end %>
     </div>

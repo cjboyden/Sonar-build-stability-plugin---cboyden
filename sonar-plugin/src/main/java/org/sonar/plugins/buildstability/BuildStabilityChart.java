@@ -17,16 +17,24 @@
 package org.sonar.plugins.buildstability;
 
 import org.apache.commons.lang.StringUtils;
+import org.jfree.chart.ChartRenderingInfo;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.CategoryToolTipGenerator;
+import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.Plot;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.sonar.api.charts.AbstractChart;
 import org.sonar.api.charts.ChartParameters;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -46,11 +54,32 @@ public class BuildStabilityChart extends AbstractChart {
 
   @Override
   protected Plot getPlot(ChartParameters params) {
+    System.err.println(params.getValue("tt"));
     CategoryPlot plot = generateJFreeChart(params);
     plot.setOutlinePaint(OUTLINE_COLOR);
     plot.setDomainGridlinePaint(GRID_COLOR);
     plot.setRangeGridlinePaint(GRID_COLOR);
     return plot;
+  }
+
+  public BufferedImage generateImage(ChartParameters params) {
+      JFreeChart chart = new JFreeChart(null, TextTitle.DEFAULT_FONT, getPlot(params), hasLegend());
+      improveChart(chart, params);
+      ChartRenderingInfo cri = new ChartRenderingInfo();
+
+      String im = ChartUtilities.getImageMap("what", cri);
+
+      return chart.createBufferedImage(params.getWidth(), params.getHeight(), cri);
+  }
+
+  private void improveChart(JFreeChart jfrechart, ChartParameters params) {
+      Color background = Color.decode("#" + params.getValue(ChartParameters.PARAM_BACKGROUND_COLOR, "FFFFFF", false));
+      jfrechart.setBackgroundPaint(background);
+
+      jfrechart.setBorderVisible(false);
+      jfrechart.setAntiAlias(true);
+      jfrechart.setTextAntiAlias(true);
+      jfrechart.removeLegend();
   }
 
   class ColoredBarRenderer extends BarRenderer {
@@ -107,6 +136,13 @@ public class BuildStabilityChart extends AbstractChart {
       String[] keyValue = StringUtils.split(pair, "=");
       paints.add(resolveColor(keyValue[1]));
     }
+    
+    CategoryToolTipGenerator tooltipGenerator = new CategoryToolTipGenerator() {
+        public String generateToolTip(CategoryDataset categoryDataset, int i, int i1) {
+            return "A value is here";  //To change body of implemented methods use File | Settings | File Templates.
+        }
+    };
+    renderer.setBaseToolTipGenerator(tooltipGenerator);
 
     renderer.setColors(paints.toArray(new Paint[paints.size()]));
     renderer.setDrawBarOutline(true);
