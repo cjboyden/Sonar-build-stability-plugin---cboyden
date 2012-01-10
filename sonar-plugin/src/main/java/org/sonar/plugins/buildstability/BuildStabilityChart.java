@@ -54,32 +54,11 @@ public class BuildStabilityChart extends AbstractChart {
 
   @Override
   protected Plot getPlot(ChartParameters params) {
-    System.err.println(params.getValue("tt"));
     CategoryPlot plot = generateJFreeChart(params);
     plot.setOutlinePaint(OUTLINE_COLOR);
     plot.setDomainGridlinePaint(GRID_COLOR);
     plot.setRangeGridlinePaint(GRID_COLOR);
     return plot;
-  }
-
-  public BufferedImage generateImage(ChartParameters params) {
-      JFreeChart chart = new JFreeChart(null, TextTitle.DEFAULT_FONT, getPlot(params), hasLegend());
-      improveChart(chart, params);
-      ChartRenderingInfo cri = new ChartRenderingInfo();
-
-      String im = ChartUtilities.getImageMap("what", cri);
-
-      return chart.createBufferedImage(params.getWidth(), params.getHeight(), cri);
-  }
-
-  private void improveChart(JFreeChart jfrechart, ChartParameters params) {
-      Color background = Color.decode("#" + params.getValue(ChartParameters.PARAM_BACKGROUND_COLOR, "FFFFFF", false));
-      jfrechart.setBackgroundPaint(background);
-
-      jfrechart.setBorderVisible(false);
-      jfrechart.setAntiAlias(true);
-      jfrechart.setTextAntiAlias(true);
-      jfrechart.removeLegend();
   }
 
   class ColoredBarRenderer extends BarRenderer {
@@ -137,13 +116,6 @@ public class BuildStabilityChart extends AbstractChart {
       paints.add(resolveColor(keyValue[1]));
     }
     
-    CategoryToolTipGenerator tooltipGenerator = new CategoryToolTipGenerator() {
-        public String generateToolTip(CategoryDataset categoryDataset, int i, int i1) {
-            return "A value is here";  //To change body of implemented methods use File | Settings | File Templates.
-        }
-    };
-    renderer.setBaseToolTipGenerator(tooltipGenerator);
-
     renderer.setColors(paints.toArray(new Paint[paints.size()]));
     renderer.setDrawBarOutline(true);
     renderer.setSeriesItemLabelsVisible(0, true);

@@ -195,8 +195,6 @@ public class BuildStabilitySensor implements Sensor {
       context.saveMeasure(durationsBuilder.build());
       context.saveMeasure(resultsBuilder.build());
     }
-
-
   }
 
   private double normalize(double value) {

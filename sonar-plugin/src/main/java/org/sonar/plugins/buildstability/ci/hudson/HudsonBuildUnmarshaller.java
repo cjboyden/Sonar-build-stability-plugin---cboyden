@@ -27,6 +27,8 @@ public class HudsonBuildUnmarshaller implements Unmarshaller {
   public Build toModel(Element domElement) {
     Build build = new Build();
 
+      System.err.println(domElement.asXML());
+      
     String result = domElement.elementText("result");
     build.setNumber(Integer.parseInt(domElement.elementText("number")));
     build.setTimestamp(Long.parseLong(domElement.elementText("timestamp")));
