@@ -17,6 +17,8 @@
 package org.sonar.plugins.buildstability.ci.hudson;
 
 import org.dom4j.Element;
+import org.dom4j.XPath;
+import org.dom4j.xpath.DefaultXPath;
 import org.sonar.plugins.buildstability.Build;
 import org.sonar.plugins.buildstability.ci.Unmarshaller;
 
@@ -27,9 +29,18 @@ public class HudsonBuildUnmarshaller implements Unmarshaller {
   public Build toModel(Element domElement) {
     Build build = new Build();
 
-      System.err.println(domElement.asXML());
-      
     String result = domElement.elementText("result");
+
+    if((domElement.element("action") != null) && (domElement.element("action").element("cause") != null)) {
+      build.setCauseDescription(domElement.element("action").element("cause").elementText("shortDescription"));
+      build.setCauseUser(domElement.element("action").element("cause").elementText("userName"));
+      build.setCauseProject(domElement.element("action").element("cause").elementText("upstreamProject"));
+      build.setCauseProjectBuild(domElement.element("action").element("cause").elementText("upstreamBuild"));
+      build.setCauseProjectUrl(domElement.element("action").element("cause").elementText("upstreamUrl"));
+
+      build.setUrl(domElement.elementText("url"));
+    }
+      
     build.setNumber(Integer.parseInt(domElement.elementText("number")));
     build.setTimestamp(Long.parseLong(domElement.elementText("timestamp")));
     build.setResult(result);

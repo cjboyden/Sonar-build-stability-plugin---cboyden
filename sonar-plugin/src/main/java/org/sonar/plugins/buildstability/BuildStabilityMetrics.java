@@ -28,6 +28,84 @@ import java.util.List;
 public class BuildStabilityMetrics implements Metrics {
   public static final String DOMAIN_BUILD = "Continuous integration";
 
+    /**
+     * Description of the build.
+     */
+    public static final Metric CAUSE_DESCRIPTION = new Metric(
+            "cause_description",
+            "Build description",
+            "Description of build",
+            Metric.ValueType.STRING,
+            Metric.DIRECTION_NONE,
+            false,
+            DOMAIN_BUILD
+    );
+
+    /**
+     * User who executed the build.
+     */
+    public static final Metric CAUSE_USER = new Metric(
+            "cause_user",
+            "User initiator",
+            "Initiating user of the build",
+            Metric.ValueType.STRING,
+            Metric.DIRECTION_NONE,
+            false,
+            DOMAIN_BUILD
+    );
+
+    /**
+     * Project that initiated this build
+     */
+    public static final Metric CAUSE_PROJECT = new Metric(
+            "cause_project",
+            "Project initiator",
+            "Initiating project of the build",
+            Metric.ValueType.STRING,
+            Metric.DIRECTION_NONE,
+            false,
+            DOMAIN_BUILD
+    );
+
+    /**
+     * Build number of the build that initiated this build
+     */
+    public static final Metric CAUSE_PROJECT_BUILD = new Metric(
+            "cause_project_build",
+            "Project build initiator",
+            "Initiating project build of the build",
+            Metric.ValueType.STRING,
+            Metric.DIRECTION_NONE,
+            false,
+            DOMAIN_BUILD
+    );
+
+    /**
+     * URL of the project build that initiated this build.
+     */
+    public static final Metric CAUSE_PROJECT_URL = new Metric(
+            "cause_project_url",
+            "Project url initiator",
+            "Initiating project url of the build",
+            Metric.ValueType.STRING,
+            Metric.DIRECTION_NONE,
+            false,
+            DOMAIN_BUILD
+    );
+
+    /**
+     * URL of the build of the project
+     */
+    public static final Metric URL = new Metric(
+            "build_url",
+            "Build url",
+            "URL of the build in CI",
+            Metric.ValueType.STRING,
+            Metric.DIRECTION_NONE,
+            false,
+            DOMAIN_BUILD
+    );
+
   /**
    * Number of builds.
    */
@@ -225,6 +303,14 @@ public class BuildStabilityMetrics implements Metrics {
 
   public List<Metric> getMetrics() {
     return Arrays.asList(
+        CAUSE_DESCRIPTION,
+        CAUSE_USER,
+        CAUSE_PROJECT,
+        CAUSE_PROJECT_BUILD,
+        CAUSE_PROJECT_URL,
+
+        URL,
+
         BUILDS,
         FAILED,
         UNSTABLE,

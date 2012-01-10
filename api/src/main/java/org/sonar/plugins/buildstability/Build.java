@@ -27,6 +27,12 @@ import java.util.Date;
  * @author Evgeny Mandrikov
  */
 public class Build {
+  public static final String CAUSE_DESCRIPTION_FIELD = "cause_description";
+  public static final String CAUSE_USER_FIELD = "cause_user";
+  public static final String CAUSE_PROJECT_FIELD = "cause_project";
+  public static final String CAUSE_PROJECT_BUILD_FIELD = "cause_build";
+  public static final String CAUSE_PROJECT_URL_FIELD = "cause_url";
+    
   public static final String URL_FIELD = "url";
   public static final String NUMBER_FIELD = "num";
   public static final String TIMESTAMP_FIELD = "time";
@@ -40,6 +46,33 @@ public class Build {
 
   public static final String SUCCESSFUL_STATUS = "ok";
   public static final String FAILED_STATUS = "fail";
+
+
+    /**
+     * Reason the build was executed
+     */
+    private String causeDescription;
+
+    /**
+     * User who executed the build on CI
+     */
+    private String causeUser;
+
+    /**
+     * Project that executed the build
+     */
+    private String causeProject;
+
+    /**
+     * Build id of the project that executed the build
+     */
+    private String causeProjectBuild;
+
+    /**
+     * Url of the project that executed the build
+     */
+    private String causeProjectUrl;
+    
 
   /**
    * Build URL.
@@ -93,7 +126,52 @@ public class Build {
 
   public Build() {
   }
+    
+  public String getCauseDescription() {
+    return causeDescription;
+  }
+    
+  public Build setCauseDescription(String causeDescription) {
+    this.causeDescription = causeDescription;
+    return this;
+  }
+    
+  public String getCauseUser() {
+    return causeUser;
+  }
+    
+  public Build setCauseUser(String causeUser) {
+    this.causeUser = causeUser;
+    return this;
+  }
+    
+  public String getCauseProject() {
+    return causeProject;
+  }
+    
+  public Build setCauseProject(String causeProject) {
+    this.causeProject = causeProject;
+    return this;
+  }
+    
+  public String getCauseProjectBuild() {
+    return causeProjectBuild;
+  }
+    
+  public Build setCauseProjectBuild(String causeProjectBuild) {
+    this.causeProjectBuild = causeProjectBuild;
+    return this;
+  }
+    
+  public String getCauseProjectUrl() {
+    return causeProjectUrl;
+  }
 
+  public Build setCauseProjectUrl(String causeProjectUrl) {
+    this.causeProjectUrl = causeProjectUrl;
+    return this;
+  }
+    
   public String getUrl() {
     return url;
   }
@@ -173,12 +251,18 @@ public class Build {
   @Override
   public String toString() {
     return new ToStringBuilder(this).
-        append(NUMBER_FIELD, number).
-        append(TIMESTAMP_FIELD, timestamp).
-        append(STATUS_FIELD, result).
+        append(Build.URL_FIELD, url).
+        append(Build.CAUSE_DESCRIPTION_FIELD, causeDescription).
+        append(Build.CAUSE_USER_FIELD, causeUser).
+        append(Build.CAUSE_PROJECT_FIELD, causeProject).
+        append(Build.CAUSE_PROJECT_BUILD_FIELD, causeProjectBuild).
+        append(Build.CAUSE_PROJECT_URL_FIELD, causeProjectUrl).
+        append(Build.NUMBER_FIELD, number).
+        append(Build.TIMESTAMP_FIELD, timestamp).
+        append(Build.STATUS_FIELD, result).
         append("stable", stable).
         append("successful", successful).
-        append(DURATION_FIELD, duration).
+        append(Build.DURATION_FIELD, duration).
         toString();
   }
 
@@ -189,19 +273,29 @@ public class Build {
       String key = StringUtils.substringBefore(field, "=");
       String value = StringUtils.substringAfter(field, "=");
       if (URL_FIELD.equalsIgnoreCase(key)) {
-        // TODO
-      } else if (NUMBER_FIELD.equalsIgnoreCase(key)) {
+        build.setUrl(value);
+      } else if (Build.CAUSE_DESCRIPTION_FIELD.equalsIgnoreCase(key)) {
+        build.setCauseDescription(value);
+      } else if (Build.CAUSE_USER_FIELD.equalsIgnoreCase(key)) {
+        build.setCauseUser(value);
+      } else if (Build.CAUSE_PROJECT_FIELD.equalsIgnoreCase(key)) {
+        build.setCauseProject(value);
+      } else if (Build.CAUSE_PROJECT_BUILD_FIELD.equalsIgnoreCase(key)) {
+        build.setCauseProjectBuild(value);
+      } else if (Build.CAUSE_PROJECT_URL_FIELD.equalsIgnoreCase(key)) {
+        build.setCauseProjectUrl(value);
+      } else if (Build.NUMBER_FIELD.equalsIgnoreCase(key)) {
         build.setNumber(Integer.parseInt(value));
-      } else if (TIMESTAMP_FIELD.equalsIgnoreCase(key)) {
+      } else if (Build.TIMESTAMP_FIELD.equalsIgnoreCase(key)) {
         build.setTimestamp(Long.parseLong(value));
-      } else if (DURATION_FIELD.equalsIgnoreCase(key)) {
+      } else if (Build.DURATION_FIELD.equalsIgnoreCase(key)) {
         build.setDurationInSeconds(Long.parseLong(value));
       } else if (Build.STABILITY_FIELD.equalsIgnoreCase(key)) {
         build.setStable(Build.STABLE_STATUS.equalsIgnoreCase(value));
-      } else if (STATUS_FIELD.equalsIgnoreCase(key)) {
+      } else if (Build.STATUS_FIELD.equalsIgnoreCase(key)) {
         build.setResult(value);
         build.setSuccessful(Build.SUCCESSFUL_STATUS.equalsIgnoreCase(value));
-      } else if (DEVELOPERS_FIELD.equalsIgnoreCase(key)) {
+      } else if (Build.DEVELOPERS_FIELD.equalsIgnoreCase(key)) {
         // TODO
       }
     }
@@ -213,13 +307,18 @@ public class Build {
 
   public String convertToString() {
     StringBuilder sb = new StringBuilder();
-    append(sb, URL_FIELD, url); // TODO escape
-    append(sb, NUMBER_FIELD, number);
-    append(sb, TIMESTAMP_FIELD, timestamp);
-    append(sb, DURATION_FIELD, getDurationInSeconds());
+    append(sb, Build.URL_FIELD, url); // TODO escape
+    append(sb, Build.CAUSE_DESCRIPTION_FIELD, causeDescription);
+    append(sb, Build.CAUSE_USER_FIELD, causeUser);
+    append(sb, Build.CAUSE_PROJECT_FIELD, causeProject);
+    append(sb, Build.CAUSE_PROJECT_BUILD_FIELD, causeProjectBuild);
+    append(sb, Build.CAUSE_PROJECT_URL_FIELD, causeProjectUrl);
+    append(sb, Build.NUMBER_FIELD, number);
+    append(sb, Build.TIMESTAMP_FIELD, timestamp);
+    append(sb, Build.DURATION_FIELD, getDurationInSeconds());
     append(sb, Build.STABILITY_FIELD, stable ? Build.STABLE_STATUS : Build.UNSTABLE_STATUS);
-    append(sb, STATUS_FIELD, successful ? SUCCESSFUL_STATUS : FAILED_STATUS);
-    append(sb, DEVELOPERS_FIELD, StringUtils.join(developers, ','));
+    append(sb, Build.STATUS_FIELD, successful ? Build.SUCCESSFUL_STATUS : Build.FAILED_STATUS);
+    append(sb, Build.DEVELOPERS_FIELD, StringUtils.join(developers, ','));
     return sb.toString();
   }
 

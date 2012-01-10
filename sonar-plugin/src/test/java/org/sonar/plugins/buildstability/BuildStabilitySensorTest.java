@@ -20,9 +20,11 @@ import org.apache.commons.configuration.BaseConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.maven.model.CiManagement;
 import org.apache.maven.project.MavenProject;
+import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.measures.Measure;
 import org.sonar.api.resources.Project;
 import org.sonar.api.test.IsMeasure;
 
@@ -91,7 +93,18 @@ public class BuildStabilitySensorTest {
         new Build(4, 20, "Fake", true, true, 5)
     );
 
+    builds.get(0).setCauseDescription("Started by user anonymous").setCauseUser("anonymous");
+    builds.get(1).setCauseDescription("Started by upstream project \"project-one\" build number 1,724").setCauseProject("project-one").setCauseProjectBuild("1724");
+    builds.get(3).setCauseDescription("Started by upstream project \"project-one\" build number 1,725").setCauseProject("project-one").setCauseProjectBuild("1725").setCauseProjectUrl("job/project-one");
+
     sensor.analyseBuilds(builds, context);
+      
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.CAUSE_DESCRIPTION, "Started by upstream project \"project-one\" build number 1,725")));
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.CAUSE_PROJECT, "project-one")));
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.CAUSE_PROJECT_BUILD, "1725")));
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.CAUSE_PROJECT_URL, "job/project-one")));
+
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.URL, (String)null)));
 
     verify(context).saveMeasure(argThat((new IsMeasure(BuildStabilityMetrics.BUILDS, 4.0))));
     verify(context).saveMeasure(argThat((new IsMeasure(BuildStabilityMetrics.FAILED, 1.0))));
@@ -123,7 +136,14 @@ public class BuildStabilitySensorTest {
         new Build(1, 0, "Fake", false, false, 10)
     );
 
+    builds.get(0).setCauseDescription("Started by user anonymous").setCauseUser("anonymous");
+
     sensor.analyseBuilds(builds, context);
+
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.CAUSE_DESCRIPTION, "Started by user anonymous")));
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.CAUSE_USER, "anonymous")));
+
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.URL, (String)null)));
 
     verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.BUILDS, 1.0)));
     verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.FAILED, 1.0)));
@@ -155,11 +175,18 @@ public class BuildStabilitySensorTest {
         new Build(1, 0, "Fake", true, true, 10)
     );
 
+    builds.get(0).setCauseDescription("Started by user anonymous").setCauseUser("anonymous");
+
     sensor.analyseBuilds(builds, context);
+
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.CAUSE_DESCRIPTION, "Started by user anonymous")));
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.CAUSE_USER, "anonymous")));
+
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.URL, (String)null)));
 
     verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.BUILDS, 1.0)));
     verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.FAILED, 0.0)));
-      verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.UNSTABLE, 0.0)));
+    verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.UNSTABLE, 0.0)));
     verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.SUCCESS_RATE, 100.0)));
 
     verify(context).saveMeasure(argThat(new IsMeasure(BuildStabilityMetrics.AVG_DURATION, 10.0)));

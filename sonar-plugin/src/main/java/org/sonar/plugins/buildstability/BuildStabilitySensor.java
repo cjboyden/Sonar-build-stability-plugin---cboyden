@@ -174,6 +174,23 @@ public class BuildStabilitySensor implements Sensor {
 
     double count = successful + unstable + failed;
 
+    Build mostRecentBuild = null;
+    if(builds.size() > 0) {
+        mostRecentBuild = builds.get(builds.size() - 1);
+    }
+    if(mostRecentBuild != null) {
+        context.saveMeasure(new Measure(BuildStabilityMetrics.CAUSE_DESCRIPTION, mostRecentBuild.getCauseDescription()));
+        if(mostRecentBuild.getCauseUser() != null) {
+            context.saveMeasure(new Measure(BuildStabilityMetrics.CAUSE_USER, mostRecentBuild.getCauseUser()));
+        } else if(mostRecentBuild.getCauseProject() != null) {
+            context.saveMeasure(new Measure(BuildStabilityMetrics.CAUSE_PROJECT, mostRecentBuild.getCauseProject()));
+            context.saveMeasure(new Measure(BuildStabilityMetrics.CAUSE_PROJECT_BUILD, mostRecentBuild.getCauseProjectBuild()));
+            context.saveMeasure(new Measure(BuildStabilityMetrics.CAUSE_PROJECT_URL, mostRecentBuild.getCauseProjectUrl()));
+        }
+
+        context.saveMeasure(new Measure(BuildStabilityMetrics.URL, mostRecentBuild.getUrl()));
+    }
+
     context.saveMeasure(new Measure(BuildStabilityMetrics.BUILDS, count));
     context.saveMeasure(new Measure(BuildStabilityMetrics.FAILED, failed));
     context.saveMeasure(new Measure(BuildStabilityMetrics.UNSTABLE, unstable));
